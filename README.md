@@ -10,3 +10,6 @@ here is my basic info
 | Name | Email |
 | -----| ----- |
 | Giorgi Samkharadze | padregiorgi777@gmail.com |
+
+
+*Note:* I am not making 8 or 7 kyu katas everything here will be lower than 6 kyu except first one, that was my first kata XD
