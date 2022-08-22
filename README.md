@@ -1,6 +1,6 @@
 # codewars
 
-## **This is my coodewars portfolio**
+## **This is my codewars portfolio**
 
 [Codewars account](https://www.codewars.com/users/Giorgi%20Samkharadze)
 
