@@ -1,40 +1,28 @@
 func nextBigger(num: Int) -> Int? {
-  var num1 = num
-
-var arr1 = [Int]()
-
-while true {
-    arr1.insert(num1 % 10, at: 0)
-    num1 /= 10
-    if num1 == 0 {
-        break
+    var digits = Array(String(num)).map { Int(String($0))! }
+    var i = digits.count - 2
+    while i >= 0 && digits[i] >= digits[i + 1] {
+        i -= 1
     }
-}
-
-let size = arr1.count
-let arr2 = arr1
-var i = 1
-
-
-
-while true {
-
-    if arr1[size-i] == arr1[size - (i + 1)] {
-    i += 1
-    }else if arr1[size-i] > arr1[size - (i + 1)] {
-    arr1[size - (i+1)] = arr1[size-i]
-    arr1[size - i] = arr2[size - (i+1)]
-    i += 1
-}
-    if i == size {
-        break
+    if i == -1 {
+        return nil
     }
-    
-}
-var myString = ""
-_ = arr1.map{ myString = myString + "\($0)" }
-let myInt = Int(myString)
-  
-  
-return myInt
+    var j = digits.count - 1
+    while digits[j] <= digits[i] {
+        j -= 1
+    }
+    let temp = digits[i]
+    digits[i] = digits[j]
+    digits[j] = temp
+    var k = i + 1
+    var l = digits.count - 1
+    while k < l {
+        let temp = digits[k]
+        digits[k] = digits[l]
+        digits[l] = temp
+        k += 1
+        l -= 1
+    }
+    let nextNum = digits.reduce(0) { $0 * 10 + $1 }
+    return nextNum
 }
