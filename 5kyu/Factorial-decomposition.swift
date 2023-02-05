@@ -1,52 +1,31 @@
 import Foundation 
 
-func decomp(_ m: Int) -> String {
-    // your code
-  
-  let primenumbers = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97]
-
-
-var b = m
-
-  var fact = 1
-  for _ in 0..<b{
-    fact *= b
-    b -= 1
-  }
-
-
-
-var r = 0
-var t = ""
-
-var h = 0
-    
-    while h < primenumbers.count {
-        if fact % primenumbers[h] == 0 {
-            fact /= primenumbers[h]
-            r += 1
-        }else {
-            if r == 0 {
-                break
-            }else if r > 1 {
-            t += "\(primenumbers[h])^\(r) * "
-            h += 1
-            r = 0
-            }else {
-                t += "\(primenumbers[h]) * "
-                h += 1
-                r = 0
+func decomp(_ n: Int) -> String {
+    var result = [Int: Int]()
+    for i in 2...n {
+        var temp = i
+        for j in 2...i {
+            while temp % j == 0 {
+                result[j, default: 0] += 1
+                temp /= j
             }
         }
-        if fact == 0{
-            break
-        }
-        
     }
+    let string = result.map({ key, value in value == 1 ? "\(key)" : "\(key)^\(value)" }).sorted(by: <).joined(separator: " * ")
     
-    t.removeLast()
-    t.removeLast()
-    t.removeLast()
-    return t
-  
+    let sortedArray = string.components(separatedBy: " * ").sorted { (lhs, rhs) -> Bool in
+        let lhsComponents = lhs.split(separator: "^")
+        let rhsComponents = rhs.split(separator: "^")
+        let lhsNumber = Int(lhsComponents[0]) ?? 0
+        let rhsNumber = Int(rhsComponents[0]) ?? 0
+        if lhsNumber != rhsNumber {
+            return lhsNumber < rhsNumber
+        } else {
+            let lhsExponent = Int(lhsComponents.count == 2 ? lhsComponents[1] : "1") ?? 1
+            let rhsExponent = Int(rhsComponents.count == 2 ? rhsComponents[1] : "1") ?? 1
+            return lhsExponent < rhsExponent
+        }
+    }
+
+    return sortedArray.joined(separator: " * ")
 }
